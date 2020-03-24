@@ -1,8 +1,6 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
-
 
 <script src="https://code.highcharts.com/highcharts.js">
 </script>
@@ -12,7 +10,8 @@
 @using Highsoft.Web.Mvc.Charts
 @using Highsoft.Web.Mvc.Charts.Rendering
 
-@{var chartOptions = new Highcharts
+@{
+    var chartOptions = new Highcharts
     {
         Chart = new Highsoft.Web.Mvc.Charts.Chart
         {
@@ -34,66 +33,68 @@
             EndAngle = 150
         },
         YAxis = new List<YAxis>
-{
-new YAxis
-{
-Min = 0,
-Max = 200,
-MinorTickWidth = 1,
-MinorTickLength = 10,
-MinorTickPosition = YAxisMinorTickPosition.Inside,
-MinorTickColor = "#666",
-TickPixelInterval = 30,
-TickWidth = 2,
-TickPosition = YAxisTickPosition.Inside,
-TickLength = 10,
-TickColor = "#666",
-Labels = new YAxisLabels
-{
-Step = 2
-},
-Title = new YAxisTitle
-{
-Text = "km/h"
-},
-PlotBands = new List<YAxisPlotBands>
-{
-new YAxisPlotBands
-{
-From = 0,
-To = 120,
-Color = "#55BF3B"
-},
-new YAxisPlotBands
-{
-From = 120,
-To = 150,
-},
-new YAxisPlotBands
-{
-From = 150,
-To = 200,
-Color = "#DF5353"
-}
-}
-}
-},
-        Series = new List<Series>
-{
-new GaugeSeries
-{
-Name = "Speed",
-Data =  (List<GaugeSeriesData>) @ViewData["gaugeData"],
-Tooltip = new GaugeSeriesTooltip
-{
-    ValueSuffix = " km/h"
-}
-}
-}
+        {
+        new YAxis
+        {
+            Min = 0,
+            Max = 200,
+            MinorTickWidth = 1,
+            MinorTickLength = 10,
+            MinorTickPosition = YAxisMinorTickPosition.Inside,
+            MinorTickColor = "#666",
+            TickPixelInterval = 30,
+            TickWidth = 2,
+            TickPosition = YAxisTickPosition.Inside,
+            TickLength = 10,
+            TickColor = "#666",
+            Labels = new YAxisLabels
+            {
+                Step = 2
+            },
+            Title = new YAxisTitle
+            {
+                Text = "km/h"
+            },
+            PlotBands = new List<YAxisPlotBands>
+            {
+                new YAxisPlotBands
+                {
+                    From = 0,
+                    To = 120,
+                    Color = "#55BF3B"
+                },
+                new YAxisPlotBands
+                {
+                    From = 120,
+                    To = 150,
+                },
+                new YAxisPlotBands
+                {
+                    From = 150,
+                    To = 200,
+                    Color = "#DF5353"
+                }
+            }
+        }
+    },
+    Series = new List<Series>
+    {
+        new GaugeSeries
+        {
+            Name = "Speed",
+            Data =  (List<GaugeSeriesData>) @ViewData["gaugeData"],
+            Tooltip = new GaugeSeriesTooltip
+            {
+                ValueSuffix = " km/h"
+            }
+        }
+    }
 };
+
 chartOptions.ID = "chart";
 var renderer = new HighchartsRenderer(chartOptions);
 }
+
 @Html.Raw(renderer.RenderHtml())
 <script type="text/javascript">
     window.setTimeout(function () {
