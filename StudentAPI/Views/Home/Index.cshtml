@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+
+<script src="https://code.highcharts.com/highcharts.js">
+</script>
+
+@using Highsoft.Web.Mvc.Charts
+@using Highsoft.Web.Mvc.Charts.Rendering;
+@{
+    var chartOptions = new Highcharts
+    {
+        Title = new Title
+        {
+            Text = "Monthly Sales Chart Department Wise",
+        },
+        Legend = new Legend
+        {
+            Layout = LegendLayout.Vertical,
+            Align = LegendAlign.Right,
+            VerticalAlign = LegendVerticalAlign.Middle,
+            BorderWidth = 0
+        },
+        Subtitle = new Subtitle
+        {
+            Text = "Year 2018",
+        },
+        XAxis = new List<XAxis>
+        {
+            new XAxis
+                    {
+                    Categories = new List<string> { "Jan", "Feb", "Mar", "Apr",
+                    "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" },
+                    }
+        },
+        YAxis = new List<YAxis>
+        {
+            new YAxis
+            {
+                Title = new YAxisTitle
+                {
+                    Text = "Sales in Million $"
+                },
+                PlotLines = new List<YAxisPlotLines>
+                {
+                new YAxisPlotLines
+                    {
+                        Value = 0,
+                        Width = 1,
+                        Color = "red"
+                    }
+                }
+            }
+        },
+        Series = new List<Series>
+        {
+            new LineSeries
+            {
+                Name = "Marketing Department",
+                Data = (List<LineSeriesData>) @ViewData["marketingData"] 
+            },
+            new LineSeries
+            {
+                Name = "Computer Science Department",
+                Data = (List<LineSeriesData>) @ViewData["CsData"] 
+            },
+        }
+    };
+
+    chartOptions.ID = "chart";
+    var renderer = new HighchartsRenderer(chartOptions);
+}
+
+@Html.Raw(renderer.RenderHtml())
